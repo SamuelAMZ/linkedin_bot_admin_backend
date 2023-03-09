@@ -12,6 +12,11 @@ const SingleSearchRoute = require("./api/routes/appRoutes/SingleSearch");
 const HomeAnalytics = require("./api/routes/appRoutes/HomeAnalyticsRoute");
 const PaginationRoute = require("./api/routes/appRoutes/Pagination");
 const RemoveTableItemRoute = require("./api/routes/appRoutes/RemoveTableItem");
+const NewAppAccountRoute = require("./api/routes/appRoutes/settings/account/newAccount");
+const EditAppAccountRoute = require("./api/routes/appRoutes/settings/account/editAccount");
+const RemoveAppAccountRoute = require("./api/routes/appRoutes/settings/account/removeAccount");
+const SingleAppAccountRoute = require("./api/routes/appRoutes/settings/account/singleAccount");
+const AllAppAccountsRoute = require("./api/routes/appRoutes/settings/account/allAccounts");
 
 // auth routes
 const newAccountRoute = require("./api/routes/authRoutes/NewAccount");
@@ -130,6 +135,46 @@ app.use("/api/logout", LogoutRoute);
     @endpoint: /api/remove-table-item
 */
 app.use("/api/remove-table-item", RemoveTableItemRoute);
+
+/*   
+    @desc: new app account
+    @method: POST
+    @privacy: public
+    @endpoint: /api/new-app-account
+*/
+app.use("/api/new-app-account", NewAppAccountRoute);
+
+/*   
+    @desc: edit app account
+    @method: POST
+    @privacy: public
+    @endpoint: /api/edit-app-account
+*/
+app.use("/api/edit-app-account", EditAppAccountRoute);
+
+/*   
+    @desc: remove app account
+    @method: POST
+    @privacy: public
+    @endpoint: /api/remove-app-account
+*/
+app.use("/api/remove-app-account", RemoveAppAccountRoute);
+
+/*   
+    @desc: single app account
+    @method: POST
+    @privacy: public
+    @endpoint: /api/single-app-account
+*/
+app.use("/api/single-app-account", SingleAppAccountRoute);
+
+/*   
+    @desc: all app accounts
+    @method: POST
+    @privacy: public
+    @endpoint: /api/all-app-accounts
+*/
+app.use("/api/all-app-accounts", AllAppAccountsRoute);
 
 app.listen(process.env.PORT, () =>
   console.log(`app listen on port ${process.env.PORT}`)
