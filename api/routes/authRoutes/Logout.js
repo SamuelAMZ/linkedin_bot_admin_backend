@@ -10,5 +10,4 @@ LogoutRoute.get("/", (req, res) => {
   });
   res.status(200).json({ message: "logout successfully", code: "ok" });
 });
-
 module.exports = LogoutRoute;

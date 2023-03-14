@@ -17,6 +17,11 @@ const EditAppAccountRoute = require("./api/routes/appRoutes/settings/account/edi
 const RemoveAppAccountRoute = require("./api/routes/appRoutes/settings/account/removeAccount");
 const SingleAppAccountRoute = require("./api/routes/appRoutes/settings/account/singleAccount");
 const AllAppAccountsRoute = require("./api/routes/appRoutes/settings/account/allAccounts");
+const NewAppProfileRoute = require("./api/routes/appRoutes/settings/profile/newProflie");
+const EditAppProfileRoute = require("./api/routes/appRoutes/settings/profile/editProfile");
+const RemoveAppProfileRoute = require("./api/routes/appRoutes/settings/profile/removeProfile");
+const SingleAppProfileRoute = require("./api/routes/appRoutes/settings/profile/singleProfile");
+const AllAppProfilesRoute = require("./api/routes/appRoutes/settings/profile/allProfiles");
 
 // auth routes
 const newAccountRoute = require("./api/routes/authRoutes/NewAccount");
@@ -137,7 +142,7 @@ app.use("/api/logout", LogoutRoute);
 app.use("/api/remove-table-item", RemoveTableItemRoute);
 
 /*   
-    @desc: new app account
+    @desc: new app account     
     @method: POST
     @privacy: public
     @endpoint: /api/new-app-account
@@ -175,6 +180,46 @@ app.use("/api/single-app-account", SingleAppAccountRoute);
     @endpoint: /api/all-app-accounts
 */
 app.use("/api/all-app-accounts", AllAppAccountsRoute);
+
+/*   
+    @desc: single app account
+    @method: POST
+    @privacy: public
+    @endpoint: /api/new-profile-account
+*/
+app.use("/api/new-profile-account", NewAppProfileRoute);
+
+/*   
+    @desc: edit app profile
+    @method: POST
+    @privacy: public
+    @endpoint: /api/edit-app-profile
+*/
+app.use("/api/edit-app-profile", EditAppProfileRoute);
+
+/*   
+    @desc: remove app profile
+    @method: POST
+    @privacy: public
+    @endpoint: /api/remove-app-profile
+*/
+app.use("/api/remove-app-profile", RemoveAppProfileRoute);
+
+/*   
+    @desc: single app profile
+    @method: POST
+    @privacy: public
+    @endpoint: /api/single-app-profile
+*/
+app.use("/api/single-app-profile", SingleAppProfileRoute);
+
+/*   
+    @desc: all app proflies
+    @method: POST
+    @privacy: public
+    @endpoint: /api/all-app-profiles
+*/
+app.use("/api/all-app-profiles", AllAppProfilesRoute);
 
 app.listen(process.env.PORT, () =>
   console.log(`app listen on port ${process.env.PORT}`)
