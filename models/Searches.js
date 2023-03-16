@@ -2,44 +2,50 @@ const mongoose = require("mongoose");
 
 const searches = new mongoose.Schema(
   {
-    keyword: {
+    uid: {
       type: String,
     },
-    country: {
+    pid: {
+      type: String,
+    },
+    accountId: {
+      type: String,
+    },
+    profileId: {
+      type: String,
+    },
+    keyword: {
       type: String,
     },
     platform: {
       type: String,
     },
-    allResults: {
-      type: Array,
-      default: [],
-    },
     isResultFound: {
       type: Boolean,
-    },
-    steps: {
-      type: Object,
-      default: {
-        step1: "scraping...",
-        step2: "not started",
-        step3: "not started",
-      },
+      default: false,
     },
     status: {
       type: String,
-      default: "step 1",
+      default: "loading",
     },
-    visitResults: {
-      type: Array,
-      default: [],
+    country: {
+      type: String,
     },
-    linksStats: {
-      type: Object,
-      default: {
-        allLinksCount: 0,
-        visitedCount: 0,
-      },
+    onSite: {
+      type: String,
+    },
+    jobType: {
+      type: String,
+    },
+    salary: {
+      type: String,
+    },
+    underTen: {
+      type: Boolean,
+    },
+    linkedinFilterUri: {
+      type: String,
+      default: "",
     },
   },
   { timestamps: true }

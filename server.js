@@ -22,6 +22,10 @@ const EditAppProfileRoute = require("./api/routes/appRoutes/settings/profile/edi
 const RemoveAppProfileRoute = require("./api/routes/appRoutes/settings/profile/removeProfile");
 const SingleAppProfileRoute = require("./api/routes/appRoutes/settings/profile/singleProfile");
 const AllAppProfilesRoute = require("./api/routes/appRoutes/settings/profile/allProfiles");
+const SelectionSingleSearch = require("./api/routes/appRoutes/SelectionSingleSearch");
+const SingleSearchSummaryRoute = require("./api/routes/appRoutes/SingleSearchSummary");
+const SingleSearchSummaryInfo = require("./api/routes/appRoutes/SingleSearchSummaryInfo");
+const StopSearchRoute = require("./api/routes/appRoutes/stopSearch");
 
 // auth routes
 const newAccountRoute = require("./api/routes/authRoutes/NewAccount");
@@ -220,6 +224,38 @@ app.use("/api/single-app-profile", SingleAppProfileRoute);
     @endpoint: /api/all-app-profiles
 */
 app.use("/api/all-app-profiles", AllAppProfilesRoute);
+
+/*   
+    @desc: update single job selection
+    @method: POST
+    @privacy: public
+    @endpoint: /api/update-single-job-selection
+*/
+app.use("/api/update-single-job-selection", SelectionSingleSearch);
+
+/*   
+    @desc: single search summary data
+    @method: POST
+    @privacy: public
+    @endpoint: /api/single-search-summary-data
+*/
+app.use("/api/single-search-summary-data", SingleSearchSummaryRoute);
+
+/*   
+    @desc: single search summary info
+    @method: POST
+    @privacy: public
+    @endpoint: /api/single-search-summary-info
+*/
+app.use("/api/single-search-summary-info", SingleSearchSummaryInfo);
+
+/*   
+    @desc: stop search
+    @method: POST
+    @privacy: public
+    @endpoint: /api/stope-search
+*/
+app.use("/api/stop-search", StopSearchRoute);
 
 app.listen(process.env.PORT, () =>
   console.log(`app listen on port ${process.env.PORT}`)

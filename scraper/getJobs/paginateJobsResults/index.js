@@ -4,16 +4,34 @@
 const autoScroll = require("../../helpers/autoScroll");
 const getNumberOfPages = require("./getNumberOfPages");
 const grabJobs = require("./grabJobs");
+const addJobToDb = require("./addJobsToDb");
 
-const paginateJobsResults = async (page, job) => {
-  // scroll to bottom
+const paginateJobsResults = async (page, job, searchId) => {
+  // link  to the results pages
+  let jobSearch = `https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent(
+    job.keyword
+  )}&location=${encodeURIComponent(job.country)}&f_AL=true`;
+
+  // navigate to result pages
+  try {
+    await page.goto(jobSearch, {
+      waitUntil: "networkidle2",
+      timeout: 30000,
+    });
+  } catch (error) {
+    console.log(error.mesage);
+  }
+
+  // scroll top then to bottom
+  await page.evaluate(() => {
+    window.scroll(0, 0);
+  });
   await autoScroll(page);
-  let allJobs = [];
 
-  // get results total pages count
-  const count = await getNumberOfPages(page);
+  // get number of pages
+  const numerOfPage = await getNumberOfPages(page);
 
-  for (let index = 0; index < count; index++) {
+  for (let index = 0; index < numerOfPage; index++) {
     // link  to the results pages
     let jobSearch = `https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent(
       job.keyword
@@ -21,23 +39,29 @@ const paginateJobsResults = async (page, job) => {
       index * 25
     }`;
 
-    // navigate to result pages
-    await page.goto(jobSearch, {
-      waitUntil: "networkidle2",
-      timeout: 120000,
-    });
+    try {
+      await page.goto(jobSearch, {
+        waitUntil: "networkidle2",
+        timeout: 30000,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
 
-    // scroll to bottom
+    // scroll top then to bottom
+    await page.evaluate(() => {
+      window.scroll(0, 0);
+    });
     await autoScroll(page);
 
     // grad the jobs
     const jobs = await grabJobs(page);
 
-    // add to alljobs array
-    allJobs.push(...jobs);
+    // add to db
+    for (let y = 0; y < jobs.length; y++) {
+      await addJobToDb(jobs[y], searchId);
+    }
   }
-
-  return allJobs;
 };
 
 module.exports = paginateJobsResults;

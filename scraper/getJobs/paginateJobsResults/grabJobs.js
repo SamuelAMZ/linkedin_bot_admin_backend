@@ -12,8 +12,8 @@ const grabJobs = async (page) => {
         document.querySelector("ul.scaffold-layout__list-container").children
       ).forEach((elm) => {
         dataFound.push({
-          url: elm.querySelector("a").href,
-          img: elm.querySelector("a > img").src,
+          jobUrl: elm.querySelector("a").href,
+          logo: elm.querySelector("a img").src,
           title: elm
             .querySelector(
               ".flex-grow-1.artdeco-entity-lockup__content.ember-view"

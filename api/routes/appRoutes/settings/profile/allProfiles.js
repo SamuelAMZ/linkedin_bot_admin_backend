@@ -6,15 +6,17 @@ const Joi = require("@hapi/joi");
 
 const schema = Joi.object({
   uid: Joi.string().max(1024).required(),
+  accountLinked: Joi.string().max(1024),
 });
 
 AllAppProfilesRoute.post("/", async (req, res) => {
-  const { uid } = req.body;
+  const { uid, accountLinked } = req.body;
 
   // joi validation sbody data
   try {
     const validation = await schema.validateAsync({
       uid,
+      accountLinked,
     });
   } catch (error) {
     res.status(400).json({ message: error.details[0].message, code: "bad" });
@@ -29,7 +31,17 @@ AllAppProfilesRoute.post("/", async (req, res) => {
   }
 
   //   search for app account
-  const allAppProfiles = await AppProfiles.find({ uid }, { title: 1, _id: 1 });
+  let allAppProfiles;
+
+  if (accountLinked) {
+    allAppProfiles = await AppProfiles.find(
+      { uid, accountLinked },
+      { title: 1, _id: 1 }
+    );
+  }
+  if (!accountLinked) {
+    allAppProfiles = await AppProfiles.find({ uid }, { title: 1, _id: 1 });
+  }
 
   if (allAppProfiles === null || !allAppProfiles) {
     return res.status(200).json({ message: "no profile found", code: "ok" });
